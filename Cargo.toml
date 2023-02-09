@@ -1,0 +1,8 @@
+[workspace]
+members = [
+    "wasm-contracts/**",
+]
+exclude = [
+    "lib/**",
+    "evm-contracts/**"
+]
