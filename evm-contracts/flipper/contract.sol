@@ -1,5 +1,6 @@
 // compiler version must be greater than or equal to 0.8.13 and less than 0.9.0
-//SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
+
 pragma solidity ^0.8.13;
 
 interface XVM {
@@ -30,12 +31,34 @@ contract flipper {
             selector
         );
 
-        XVM_PRECOMPILE.xvm_call("\x1f\x00", contract_address, buffer);
+        XVM_PRECOMPILE.xvm_call("\x1f\x00\x00\x00\x00", contract_address, buffer);
+
         return true;
     }
 
 
+ 
+    function set(
+        bool  value
+    ) public
+    returns (bool)
+    {
+        bytes4 selector = 0xe8c45eb6;
+        bytes memory contract_address = abi.encodePacked(ink_address);
+        bytes memory buffer = bytes.concat(
+            selector,
+            abi.encodePacked(value)
+        );
+
+        XVM_PRECOMPILE.xvm_call("\x1f\x00\x00\x00", contract_address, buffer);
+        return true;
+    }
+
+
+
+
     // mapped id Number(0) -> bool
+
 
 
 
