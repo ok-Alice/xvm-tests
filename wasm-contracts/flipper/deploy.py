@@ -31,27 +31,11 @@ try:
     )
 
     keypair = Keypair.create_from_uri('//Alice')
-    contract_address = "Y6HVpvZQa8X9s16YzkB5odgw13DtRgGRn1URRNhDiQsB7yE"
-
-    # Check if contract is on chain
-    contract_info = substrate.query("Contracts", "ContractInfoOf", [contract_address])
-
-    # if contract_info.value:
-
-    #     print(f'Found contract on chain: {contract_info.value}')
-
-    #     # Create contract instance from deterministic address
-    #     contract = ContractInstance.create_from_address(
-    #         contract_address=contract_address,
-    #         metadata_file=os.path.join(os.path.dirname(__file__), 'target/ink', 'metadata.json'),
-    #         substrate=substrate
-    #     )
-    # else:
 
     # Upload WASM code
     code = ContractCode.create_from_contract_files(
-        metadata_file=os.path.join(os.path.dirname(__file__), 'target/ink', 'metadata.json'),
-        wasm_file=os.path.join(os.path.dirname(__file__), 'target/ink', 'flipper.wasm'),
+        metadata_file=os.path.join(os.path.dirname(__file__), 'target', 'ink', 'metadata.json'),
+        wasm_file=os.path.join(os.path.dirname(__file__), 'target', 'ink', 'flipper.wasm'),
         substrate=substrate
     )
 
@@ -67,8 +51,10 @@ try:
         upload_code=True,
         deployment_salt= '0x{}'.format(secrets.token_hex(8))  #for random string
     )
+
     
-    print(f'✅ Deployed @ {contract.contract_address}')
+    print("✅ Deployed AccountId: @ ",contract.contract_address, "CodeHash:",contract.metadata.source['hash']);
+
 
     # Read current value
     result = contract.read(keypair, 'get')
