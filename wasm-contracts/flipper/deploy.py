@@ -68,7 +68,6 @@ try:
         deployment_salt= '0x{}'.format(secrets.token_hex(8))  #for random string
     )
     
-    print(contract.metadata)
     print(f'✅ Deployed @ {contract.contract_address}')
 
     # Read current value
