@@ -4,6 +4,12 @@ use ink_lang as ink;
 
 #[ink::contract]
 pub mod flipper {
+
+    #[ink(event)]
+    pub struct FlipEvent {
+        value: bool,
+    }
+
     #[ink(storage)]
     pub struct Flipper {
         value: bool,
@@ -20,6 +26,7 @@ pub mod flipper {
         #[ink(message)]
         pub fn flip(&mut self) -> bool {
             self.value = !self.value;
+            self.env().emit_event(FlipEvent { value: self.value });
             self.value
         }
 
@@ -34,8 +41,6 @@ pub mod flipper {
             self.value = value;
             value
         }
-
-
     }
 
     #[cfg(test)]

@@ -1,6 +1,5 @@
 // compiler version must be greater than or equal to 0.8.13 and less than 0.9.0
 // SPDX-License-Identifier: MIT
-
 pragma solidity ^0.8.13;
 
 interface XVM {
@@ -32,11 +31,8 @@ contract flipper {
         );
 
         XVM_PRECOMPILE.xvm_call("\x1f\x00\x00\x00\x00", contract_address, buffer);
-
         return true;
     }
-
-
  
     function set(
         bool  value
@@ -50,16 +46,9 @@ contract flipper {
             abi.encodePacked(value)
         );
 
-        XVM_PRECOMPILE.xvm_call("\x1f\x00\x00\x00", contract_address, buffer);
+        XVM_PRECOMPILE.xvm_call("\x1f\x00\x00\x00\x00", contract_address, buffer);
         return true;
     }
-
-
-
-
-    // mapped id Number(0) -> bool
-
-
 
 
     function encode_uint128(uint128 value) private pure returns (bytes memory) {
