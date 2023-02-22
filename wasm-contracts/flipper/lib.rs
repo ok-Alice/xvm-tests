@@ -4,10 +4,11 @@ use ink_lang as ink;
 
 #[ink::contract]
 pub mod flipper {
-
+    /// Emitted at every flip
     #[ink(event)]
     pub struct FlipEvent {
-        value: bool,
+        /// Current value
+        value: bool, 
     }
 
     #[ink(storage)]

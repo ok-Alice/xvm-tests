@@ -13,28 +13,28 @@ interface XVM {
 contract flipper {
     XVM constant XVM_PRECOMPILE = XVM(0x0000000000000000000000000000000000005005);
 
-    address ink_address;
 
-    constructor (address _ink_address) {
-        ink_address = _ink_address;
+    constructor () {
     }
 
  
     function flip(
+        bytes memory contract_address
     ) public
     returns (bool)
     {
         bytes4 selector = 0x633aa551;
-        bytes memory contract_address = abi.encodePacked(ink_address);
+        bytes memory encoded_address = abi.encodePacked(contract_address);
         bytes memory buffer = bytes.concat(
             selector
         );
 
-        XVM_PRECOMPILE.xvm_call("\x1f\x00\x00\x00\x00", contract_address, buffer);
+        XVM_PRECOMPILE.xvm_call("\x1f\x00\x00\x00\x00", encoded_address, buffer);
         return true;
     }
  
     function set(
+        bytes memory ink_address,
         bool  value
     ) public
     returns (bool)
